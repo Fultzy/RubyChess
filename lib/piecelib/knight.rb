@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 
 class Knight
   attr_reader :color, :location
-
 
   def initialize(color, location)
     @value = 3
@@ -10,9 +10,9 @@ class Knight
   end
 
   def list_moves(location = @location)
-    movelist = [[2,1], [2,-1], [-2,1], [-2,-1], [1,2], [1,-2], [-1,2], [-1,-2]]
+    movelist = [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]]
     range = 1...8
-    array = Array.new
+    array = []
     movelist.each do |x, y|
       new_x = x + location[0]
       new_y = y + location[1]
@@ -23,6 +23,6 @@ class Knight
 
   def move(new_location)
     list_moves.include?(new_location) ? @location = new_location : false
-    return true
+    true
   end
 end

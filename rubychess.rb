@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 ## Ruby chess created by Fultzy! :D
 ## ruby-v: 2.6.2
 ## likely using ruby2d-v: 0.9.5
 
-require './lib/gamestate.rb'
-#require './lib/player.rb'
-#require './lib/computer.rb'
+require './lib/gamestate'
+# require './lib/player.rb'
+# require './lib/computer.rb'
 
 # board size 8x8
 
@@ -32,10 +34,8 @@ def get_to_here
   end
 end
 
-
 puts ' list of moves'
 p @knight.list_moves
-
 
 get_to_here
 puts "took you #{@game.turn_count} turns"
