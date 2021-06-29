@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require './lib/piecelib/knight'
 
 # require './lib/player.rb'
 # require './lib/computer/rb'
+require './lib/pieces'
 require './lib/board'
 
 class Gamestate
