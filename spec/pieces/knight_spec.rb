@@ -1,5 +1,5 @@
 
-require './lib/piece_lib/knight'
+require './lib/pieces/knight'
 
 describe Knight do
   before(:all) do

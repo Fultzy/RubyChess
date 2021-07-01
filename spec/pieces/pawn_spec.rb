@@ -1,5 +1,5 @@
 
-require './lib/piece_lib/pawn'
+require './lib/pieces/pawn'
 
 describe Pawn do
   before(:all) do
