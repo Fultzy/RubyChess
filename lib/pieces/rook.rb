@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rook
   attr_reader :color, :location, :move_count, :value
 
@@ -15,7 +17,7 @@ class Rook
   # allowed to move the king two spaces towords one of the
   # rooks and place that rook on the other side of king.
 
-  def list_moves(_location = @location, list = [])
+  def list_moves(location = @location, list = [])
     list.push(*horizontal(location[0]))
     list.push(*vertical(location[1]))
     list
@@ -24,14 +26,14 @@ class Rook
   def horizontal(x, y = 0, list = [])
     return list if y > 8
 
-    list.push [x,y]
+    list.push [x, y]
     horizontal(x, y + 1, list)
   end
 
   def vertical(y, x = 0, list = [])
     return list if x > 8
 
-    list.push([x,y])
+    list.push([x, y])
     vertical(y, x + 1, list)
   end
 

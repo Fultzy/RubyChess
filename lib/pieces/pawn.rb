@@ -16,14 +16,14 @@ class Pawn
   def list_moves(location = @location, list = [])
     case @color
     when :black
-      if @move_count == 0
+      if @move_count.zero?
         list.push([location[0] - 1, location[1]],
         [location[0] - 2, location[1]])
       else
         list.push([location[0] - 1, location[1]])
       end
     when :white
-      if @move_count == 0
+      if @move_count.zero?
         list.push([location[0] + 1, location[1]],
         [location[0] + 2, location[1]])
       else
