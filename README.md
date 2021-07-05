@@ -31,7 +31,7 @@
   - be able to fetch all piece locations
   - be able to display a pieces legal moves/attacks
   - be able to show this information to `window.rb`
-  - if a piece is taken is removed
+  - if a piece is taken is moved to graveyard?
 
 # Testing should:
   - rake each piece for their specific tests

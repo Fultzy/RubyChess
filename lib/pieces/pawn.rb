@@ -13,21 +13,21 @@ class Pawn
   # move backwords. the :color decides in which
   # direction it travels
 
-  def list_moves(location = @location)
+  def list_moves(location = @location, list = [])
     case @color
     when :black
-      if @move_count == 0
-        [ [location[0] - 1, location[1]],
-        [location[0] - 2, location[1]]]
+      if @move_count.zero?
+        list.push([location[0] - 1, location[1]],
+        [location[0] - 2, location[1]])
       else
-        [[location[0] - 1, location[1]]]
+        list.push([location[0] - 1, location[1]])
       end
     when :white
-      if @move_count == 0
-        [ [location[0] + 1, location[1]],
-        [location[0] + 2, location[1]]]
+      if @move_count.zero?
+        list.push([location[0] + 1, location[1]],
+        [location[0] + 2, location[1]])
       else
-        [[location[0] + 1, location[1]]]
+        list.push([location[0] + 1, location[1]])
       end
     end
   end
