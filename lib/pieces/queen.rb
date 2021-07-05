@@ -9,7 +9,9 @@ class Queen
   end
 
   # the queen can move vertically, and horizontally any
-  # number of spaces.
+  # number of spaces. it cannot jump over others, and
+  # is the highest valued piece. when a pawn reaches the
+  # other side of the board it is replaced with a queen
 
   def list_moves(location = @location, list = [])
     list.push(*horizontal(location[0]))
@@ -19,41 +21,55 @@ class Queen
     list
   end
 
+#### Path Finding ####
   def horizontal(x, y = 0, list = [])
     return list if y > 8
+
     list.push [x,y]
     horizontal(x, y + 1, list)
   end
 
   def vertical(y, x = 0, list = [])
     return list if x > 8
+
     list.push([x,y])
     vertical(y, x + 1, list)
   end
 
-  def ascending(location, list = [])
-    return list if location[0] > 8 || location[1] > 0
+  def ascending(loc, list = [])
+    return list if loc[0] > 8 || loc[1] > 8
+
     if list.empty?
-
-
+      if loc[0] > loc[1]
+        list.push([loc[0] - loc[1], 0])
+        ascending([loc[0] - loc[1] + 1, 1], list)
+      else
+        list.push([loc[1] - loc[0], 0])
+        ascending([loc[1] - loc[0] + 1, 1], list)
+      end
     else
-
+      list.push(loc)
+      ascending([loc[0] + 1, loc[1] + 1], list)
     end
   end
 
-  def descending(location, list = [])
+  def descending(loc, list = [])
+    return list if loc[0].negative? || loc[1] > 8
+
     if list.empty?
-
+      until loc[0] == 8 || loc[1] == 0 do
+        loc[0] += 1
+        loc[1] -= 1
+      end
+      list.push(loc)
+      descending([loc[0] - 1, loc[1] + 1], list)
     else
-
+      list.push(loc)
+      descending([loc[0] - 1, loc[1] + 1], list)
     end
   end
 
-  # should do helper recursive method?
-  # make single implements for directions
-  # add them to other pieces, king like
-  # queen but one space cap.
-
+###############
   def move(new_location)
     if list_moves.include?(new_location)
       @move_count += 1
