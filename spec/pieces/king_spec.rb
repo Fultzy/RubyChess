@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 
 require './lib/pieces/king'
 
 describe King do
   before(:all) do
-    @king = King.new(:white, [0,4])
+    @king = King.new(:white, [0, 4])
   end
 
   describe '#list_moves' do

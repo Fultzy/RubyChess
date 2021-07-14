@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class Knight
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 3
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♘' : '♞'
   end
 
   # the knight can move to 8 different positions from a

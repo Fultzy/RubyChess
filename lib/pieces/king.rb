@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 class King
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 4
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♔' : '♚'
   end
 
   # The king can move in all dirrections but only one space

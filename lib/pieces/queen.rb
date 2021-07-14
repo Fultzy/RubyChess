@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 class Queen
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 9
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♕' : '♛'
   end
 
   # the queen can move vertically, and horizontally any
@@ -21,18 +24,18 @@ class Queen
     list
   end
 
-#### Path Finding ####
+  #### Path Finding ####
   def horizontal(x, y = 0, list = [])
     return list if y > 8
 
-    list.push [x,y]
+    list.push [x, y]
     horizontal(x, y + 1, list)
   end
 
   def vertical(y, x = 0, list = [])
     return list if x > 8
 
-    list.push([x,y])
+    list.push([x, y])
     vertical(y, x + 1, list)
   end
 
@@ -57,7 +60,7 @@ class Queen
     return list if loc[0].negative? || loc[1] > 8
 
     if list.empty?
-      until loc[0] == 8 || loc[1] == 0 do
+      until loc[0] == 8 || (loc[1]).zero?
         loc[0] += 1
         loc[1] -= 1
       end
@@ -69,7 +72,7 @@ class Queen
     end
   end
 
-###############
+  ###############
   def move(new_location)
     if list_moves.include?(new_location)
       @move_count += 1

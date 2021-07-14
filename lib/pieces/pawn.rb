@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 class Pawn
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 1
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♙' : '♟︎'
   end
 
   # on the pawns first move its allowed to move 2
@@ -18,14 +21,14 @@ class Pawn
     when :black
       if @move_count.zero?
         list.push([location[0] - 1, location[1]],
-        [location[0] - 2, location[1]])
+                  [location[0] - 2, location[1]])
       else
         list.push([location[0] - 1, location[1]])
       end
     when :white
       if @move_count.zero?
         list.push([location[0] + 1, location[1]],
-        [location[0] + 2, location[1]])
+                  [location[0] + 2, location[1]])
       else
         list.push([location[0] + 1, location[1]])
       end

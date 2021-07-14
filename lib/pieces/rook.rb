@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class Rook
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 5
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♖' : '♜'
   end
 
   # The rook can move only vertically and horizontally.

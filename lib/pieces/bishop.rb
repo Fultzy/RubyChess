@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class Bishop
-  attr_reader :color, :location, :move_count, :value
+  attr_reader :color, :location, :move_count, :value, :icon
 
   def initialize(color, location)
     @value = 3
     @color = color
     @location = location # => [x,y] or [^,>]
     @move_count = 0
+    @icon = @color == :black ? '♗' : '♝'
   end
 
   # The bishop can move like the queen but only
@@ -40,7 +41,7 @@ class Bishop
     return list if loc[0].negative? || loc[1] > 8
 
     if list.empty?
-      until loc[0] == 8 || loc[1] == 0 do
+      until loc[0] == 8 || (loc[1]).zero?
         loc[0] += 1
         loc[1] -= 1
       end
