@@ -14,12 +14,12 @@ class Board
   attr_reader :pieces, :graveyard
 
   def initialize
-    @graveyard = [Knight.new(:black, :graveyard)]
     new_board
   end
 
   # OH GOOD GOD WTF IS THIS?!?
   def new_board
+    @graveyard = []
     @pieces = {
       [7, 0] => Rook.new(:black, [7, 0]),
       [7, 7] => Rook.new(:black, [7, 7]),
@@ -81,9 +81,13 @@ class Board
   end
 
   def grave_icons(color)
-    @graveyard.each do |piece|
-      return piece.color == color ? "#{piece.icon}" : ''
+    icons = String.new
+    unless @graveyard.empty?
+      @graveyard.each do |piece|
+        icons.concat(piece.color == color ? "#{piece.icon}" : '')
+      end
     end
+    icons
   end
 
   def grave_points(color)
@@ -117,10 +121,10 @@ class Board
       print @pieces.has_key?([x, y]) ? " #{@pieces[[x, y]].icon} ┃" : '   ┃'
       y += 1
     end
-    print "    Bar: #{grave_points(:white)}" if x + 1 == 7
+    print "    Bar: #{grave_points(:white)} points" if x + 1 == 7
     print "    #{grave_icons(:white)}" if x + 1 == 6
-    print "    Foo: #{grave_points(:black)}" if x + 1 == 3
-    print "    #{grave_icons(:black)}" if x + 1 == 2
+    print "    Foo: #{grave_points(:black)} points" if x + 1 == 2
+    print "    #{grave_icons(:black)}" if x + 1 == 1
     puts ''
   end
 end
