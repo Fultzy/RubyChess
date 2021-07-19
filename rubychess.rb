@@ -12,7 +12,7 @@ def main_menu
   when 3 then @game = Gamestate.new
   when 4
     if Dir.exist?('saves')
-      @game = Gamestate.new(false, false)
+      @game = Gamestate.new(false, false, true)
       @game.load_game
     else
       print "WrOnG! "
@@ -26,13 +26,10 @@ end
 
 p = 1
 main_menu
+load './lib/images/howplay.rb'
 until @game.game_over == true
-  return if p == 5
   puts ''
   @game.turn
-  #print 'save?'
-  #gets.chomp == 'yes' ? @game.save_game : nil
-  @game.game_over = true
 end
 puts ''
 
