@@ -3,7 +3,7 @@ require './lib/board'
 describe Board do
   before(:all) do
     @board = Board.new
-    @piece_hash = @board.pieces
+    @pieces = @board.pieces
     @graveyard = @board.graveyard
   end
 
@@ -11,12 +11,12 @@ describe Board do
   describe '#new_board' do
     context 'when a new_board is requested' do
       it "creates a list containing 32 pieces" do
-        expect(@piece_hash.size).to eql(32)
+        expect(@pieces.size).to eql(32)
       end
     end
   end
 
-  describe '#remove_piece' do
+  describe '#remove' do
     context 'when called upon a location' do
       it "removes that piece if one is present" do
         expect(@board.remove([7, 0]).class).to (be Rook)
@@ -44,15 +44,20 @@ describe Board do
 
   describe '#attack' do
     context 'when a piece is requested to attack another' do
-      xit "removes the defending piece from the board" do
-        @board.attack()
-        expect()
+      it "removes the defending piece from the board" do
+        @pieces[[4, 4]] = Rook.new(:black, [4, 4])
+        @pieces[[4, 2]] = Rook.new(:white, [4, 2])
+        @board.attack([4, 2], [4, 4])
+        expect(@graveyard).to include(Rook)
       end
-      xit "changes the location of the attacking piece" do
-        expect()
+
+      it "changes the location of the attacking piece(hash_key)" do
+        @board.attack([1, 3], [2, 3])
+        expect(@pieces[[2, 3]]).to be_a(Pawn)
       end
-      xit "returns false if no piece in defending location" do
-        expect()
+
+      it "returns false if piece cannot move to defending location" do
+        expect(@board.attack([0, 4], [8, 8])).to (be false)
       end
     end
   end
@@ -60,13 +65,13 @@ describe Board do
   describe '#grave_icons ' do
     context 'returns icons of pieces in graveyard' do
       it "when looking for :black pieces" do
-        expect(@board.grave_icons(:black)).to eql('♘')
+        expect(@board.grave_icons(:black)).to eql('♘♖')
       end
 
       it "when looking for :white pieces" do
         @board.remove([0, 4], true)
         @board.remove([0, 7], true)
-        expect(@board.grave_icons(:white)).to include('♛' '♜')
+        expect(@board.grave_icons(:white)).to include('♛♜')
       end
     end
   end
@@ -74,7 +79,7 @@ describe Board do
   describe '#grave_points' do
     context 'returns sum of piece values within graveyard' do
       it "when looking at :black pieces" do
-        expect(@board.grave_points(:black)).to eql(3)
+        expect(@board.grave_points(:black)).to eql(8)
       end
 
       it "when looking for :white pieces" do

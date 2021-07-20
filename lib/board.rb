@@ -17,8 +17,9 @@ class Board
     new_board
   end
 
-  # OH GOOD GOD WTF IS THIS?!?
+  #### Game Setup ####
   def new_board
+    # OH GOOD GOD WTF IS THIS?!?
     @graveyard = []
     @pieces = {
       [7, 0] => Rook.new(:black, [7, 0]),
@@ -40,7 +41,7 @@ class Board
     }
     y = 0
     until y == 8 do
-      @pieces[[6, y]] = Pawn.new(:black, [7, y])
+      @pieces[[6, y]] = Pawn.new(:black, [6, y])
       @pieces[[1, y]] = Pawn.new(:white, [1, y])
       y += 1
     end
@@ -48,10 +49,11 @@ class Board
 
   def list_pieces
     @pieces.each_value do |val|
-      puts "#{val.icon} : #{val.class} @ #{val.location}"
+      puts "#{val.icon} : #{val.class} @ #{val.location}/#{@pieces.key(val)}"
     end
   end
 
+  #### Piece Manipulation ####
   def remove(location, send_to_grave = false)
     if @pieces.include?(location)
       if send_to_grave == true
@@ -65,21 +67,26 @@ class Board
     end
   end
 
-  def replace_piece(location, new_piece)
+  def replace(location, new_piece)
     if remove(location)
       @pieces[location] = new_piece
     end
   end
 
   def attack(attacking, defending)
-    if remove(defending, true)
-      if @pieces[attacking].list_moves.include?(defending)
-        p 'hello'
-      end
-
+    if @pieces.has_key?(defending)
+      remove(defending, true)
+      @pieces[attacking].move(defending)
+      @pieces[defending] = @pieces.delete(attacking)
+    elsif @pieces[attacking].list_moves.include?(defending)
+      @pieces[attacking].move(defending)
+      @pieces[defending] = @pieces.delete(attacking)
+    else
+      false
     end
   end
 
+  #### Board ####
   def grave_icons(color)
     icons = String.new
     unless @graveyard.empty?
@@ -121,9 +128,9 @@ class Board
       print @pieces.has_key?([x, y]) ? " #{@pieces[[x, y]].icon} ┃" : '   ┃'
       y += 1
     end
-    print "    Bar: #{grave_points(:white)} points" if x + 1 == 7
+    print "    Bar: #{grave_points(:white)} point(s)" if x + 1 == 7
     print "    #{grave_icons(:white)}" if x + 1 == 6
-    print "    Foo: #{grave_points(:black)} points" if x + 1 == 2
+    print "    Foo: #{grave_points(:black)} point(s)" if x + 1 == 2
     print "    #{grave_icons(:black)}" if x + 1 == 1
     puts ''
   end

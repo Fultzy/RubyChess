@@ -8,20 +8,24 @@ require 'json'
 class Gamestate
   attr_accessor :turn_count, :game_over, :board
 
-  def initialize(option1 = false, option2 = false)
-    @turn_count = 1
+  def initialize(option1 = false, option2 = false, load = false)
     @game_over = false
-    @player1 = if option1 == false
-                 Computer.new('FooBot', :white)
-               else
-                 Player.new('Foo', :white)
-               end
-    @player2 = if option2 == false
-                 Computer.new('BarBot', :black)
-               else
-                 Player.new('Bar', :black)
-               end
-    @board = Board.new
+    if load == false
+      @turn_count = 1
+      @player1 = if option1 == false
+                   Computer.new('FooBot', :white)
+                 else
+                   Player.new('Foo', :white)
+                 end
+      @player2 = if option2 == false
+                   Computer.new('BarBot', :black)
+                 else
+                   Player.new('Bar', :black)
+                 end
+      @board = Board.new
+    else
+      load_game
+    end
   end
 
   #### Save/Load Game ####
@@ -37,6 +41,7 @@ class Gamestate
       file.write(JSON.pretty_generate(data.to_json))
     end
     puts 'Game Saved!'
+    @game_over == true
   end
 
   def load_game
@@ -55,9 +60,6 @@ class Gamestate
     end
   end
 
-  #### SetUp ####
-  def new_game?; end
-
   #### Game Flow ####
   def player
     @turn_count.odd? ? @player1 : @player2
@@ -65,8 +67,13 @@ class Gamestate
 
   def turn
     @board.view
-    #player.makes_move
-    #@board.check?
+    input = player.makes_move
+    if input == :save
+      save_game
+    else
+      @board.attack(input[0], input[1])
+      #@board.list_pieces
+    end
     @turn_count += 1
   end
 end

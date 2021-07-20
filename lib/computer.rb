@@ -12,5 +12,7 @@ class Computer
 
   # => perhaps some favor to put player into check when avalible. `can_check` or `can_attack`
 
-  def makes_move; end
+  def makes_move
+    
+  end
 end
