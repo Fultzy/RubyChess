@@ -1,3 +1,8 @@
+# @Author: Alex Fultz <Fultzy>
+# @Date:   19-Jul-2021
+# @Filename: queen.rb
+# @Last modified by:   big
+# @Last modified time: 15-Oct-2021 (15:10)
 # frozen_string_literal: true
 
 class Queen
@@ -11,8 +16,8 @@ class Queen
     @icon = @color == :black ? '♕' : '♛'
   end
 
-  # the queen can move vertically, and horizontally any
-  # number of spaces. it cannot jump over others, and
+  # the queen can move diagonally, vertically and horizontally
+  # any number of spaces. it cannot jump over others, and
   # is the highest valued piece. when a pawn reaches the
   # other side of the board it is replaced with a queen
 
@@ -57,7 +62,7 @@ class Queen
   end
 
   def descending(loc, list = [])
-    return list if loc[0].negative? || loc[1] > 8
+    return list if loc[0].negative? || loc[1] > 7
 
     if list.empty?
       until loc[0] == 8 || (loc[1]).zero?
@@ -74,10 +79,13 @@ class Queen
 
   ###############
   def move(new_location)
+    p list_moves
+    p new_location
     if list_moves.include?(new_location)
       @move_count += 1
       @location = new_location
     else
+      p "failed"
       false
     end
   end

@@ -1,3 +1,8 @@
+# @Author: Alex Fultz <Fultzy>
+# @Date:   19-Jul-2021
+# @Filename: bishop.rb
+# @Last modified by:   big
+# @Last modified time: 15-Oct-2021 (15:10)
 # frozen_string_literal: true
 
 class Bishop
@@ -21,7 +26,7 @@ class Bishop
   end
 
   def ascending(loc, list = [])
-    return list if loc[0] > 8 || loc[1] > 8
+    return list if loc[0] > 7 || loc[1] > 8
 
     if list.empty?
       if loc[0] > loc[1]
@@ -54,10 +59,14 @@ class Bishop
   end
 
   def move(new_location)
+    p list_moves
+    p new_location
+    list_moves.include?(new_location)
     if list_moves.include?(new_location)
       @move_count += 1
       @location = new_location
     else
+      p "failed"
       false
     end
   end

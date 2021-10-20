@@ -1,3 +1,8 @@
+# @Author: Alex Fultz <Fultzy>
+# @Date:   19-Jul-2021
+# @Filename: knight.rb
+# @Last modified by:   big
+# @Last modified time: 14-Oct-2021 (12:10)
 # frozen_string_literal: true
 
 class Knight

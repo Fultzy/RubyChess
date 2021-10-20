@@ -1,3 +1,9 @@
+# @Author: Alex Fultz <big>
+# @Date:   19-Jul-2021 (19:07)
+# @Last modified by:   big
+# @Last modified time: 14-Oct-2021 (14:10)
+
+
 # frozen_string_literal: true
 
 class Player
@@ -30,6 +36,12 @@ class Player
       y = range.to_a.index(location[1])
       x = location[0].to_i - 1
     end
-    [x, y]
+
+    if x.nil? || y.nil? || y.negative? || x.negative?
+      puts 'out of range'
+      false
+    else
+      [x, y]
+    end
   end
 end

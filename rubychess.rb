@@ -15,16 +15,16 @@ def main_menu
       @game = Gamestate.new(false, false, true)
       @game.load_game
     else
-      print "WrOnG! "
+      print 'WrOnG! '
       main_menu
     end
-  when nil || 5..9
-    print "WrOnG! "
+  when nil || 5..9 || 0
+    print 'WrOnG! '
     main_menu
   end
 end
 
-p = 1
+# p = 1
 main_menu
 load './lib/images/howplay.rb'
 until @game.game_over == true

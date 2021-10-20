@@ -1,3 +1,8 @@
+# @Author: Alex Fultz <Fultzy>
+# @Date:   19-Jul-2021
+# @Filename: pawn.rb
+# @Last modified by:   big
+# @Last modified time: 14-Oct-2021 (14:10)
 # frozen_string_literal: true
 
 class Pawn
@@ -25,6 +30,7 @@ class Pawn
       else
         list.push([location[0] - 1, location[1]])
       end
+
     when :white
       if @move_count.zero?
         list.push([location[0] + 1, location[1]],

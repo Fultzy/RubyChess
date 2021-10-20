@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts ''
 puts '         Entering commands:'
 puts '   `1b to 3c` will move a white knight      Enter `save`'
